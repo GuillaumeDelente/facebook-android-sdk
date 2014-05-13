@@ -1511,6 +1511,7 @@ public class Request {
         try {
             connection = toHttpConnection(requests);
         } catch (Exception ex) {
+            ex.printStackTrace();
             List<Response> responses = Response.constructErrorResponses(requests.getRequests(), null, new FacebookException(ex));
             runCallbacks(requests, responses);
             return responses;
@@ -2002,8 +2003,9 @@ public class Request {
             }
 
             processRequest(requests, logger, numRequests, url, outputStream);
-        }
-        finally {
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
             outputStream.close();
         }
 

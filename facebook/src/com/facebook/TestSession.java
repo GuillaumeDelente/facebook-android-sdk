@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Implements an subclass of Session that knows about test users for a particular
@@ -408,7 +409,15 @@ public class TestSession extends Session {
 
         String graphPath = String.format("%s/accounts/test-users", testApplicationId);
         Request createUserRequest = new Request(null, graphPath, parameters, HttpMethod.POST);
-        Response response = createUserRequest.executeAndWait();
+        RequestAsyncTask asyncTask = createUserRequest.executeAsync();
+        Response response = null;
+        try {
+            response = asyncTask.get().get(0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         FacebookRequestError error = response.getError();
         TestAccount testAccount = response.getGraphObjectAs(TestAccount.class);
@@ -436,7 +445,15 @@ public class TestSession extends Session {
         parameters.putString("access_token", appAccessToken);
 
         Request request = new Request(null, testAccountId, parameters, HttpMethod.DELETE);
-        Response response = request.executeAndWait();
+        RequestAsyncTask asyncTask = request.executeAsync();
+        Response response = null;
+        try {
+            response = asyncTask.get().get(0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         FacebookRequestError error = response.getError();
         GraphObject graphObject = response.getGraphObject();
