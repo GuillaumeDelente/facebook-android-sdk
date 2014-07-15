@@ -1059,7 +1059,7 @@ public class Session implements Serializable {
      *                     notify regarding Session state changes.
      * @return The new Session or null if one could not be created
      */
-    public static Session openActiveSession(Context context, Fragment fragment,
+    public static Session openActiveSession(Context context, android.app.Fragment fragment,
             boolean allowLoginUI, StatusCallback callback) {
         return openActiveSession(context, allowLoginUI, new OpenRequest(fragment).setCallback(callback));
     }
@@ -1084,7 +1084,7 @@ public class Session implements Serializable {
      *                     notify regarding Session state changes.
      * @return The new Session or null if one could not be created
      */
-    public static Session openActiveSession(Context context, Fragment fragment,
+    public static Session openActiveSession(Context context, android.app.Fragment fragment,
             boolean allowLoginUI, List<String> permissions, StatusCallback callback) {
         return openActiveSession(
                 context, 
@@ -1906,7 +1906,7 @@ public class Session implements Serializable {
             };
         }
 
-        AuthorizationRequest(final Fragment fragment) {
+        AuthorizationRequest(final android.app.Fragment fragment) {
             startActivityDelegate = new StartActivityDelegate() {
                 @Override
                 public void startActivityForResult(Intent intent, int requestCode) {
@@ -2119,7 +2119,7 @@ public class Session implements Serializable {
          *
          * @param fragment the Fragment to use to open the Session
          */
-        public OpenRequest(Fragment fragment) {
+        public OpenRequest(android.app.Fragment fragment) {
             super(fragment);
         }
 
@@ -2223,7 +2223,7 @@ public class Session implements Serializable {
          * @param fragment    the Fragment used to issue the request
          * @param permissions additional permissions to request
          */
-        public NewPermissionsRequest(Fragment fragment, List<String> permissions) {
+        public NewPermissionsRequest(android.app.Fragment fragment, List<String> permissions) {
             super(fragment);
             setPermissions(permissions);
         }
@@ -2245,7 +2245,7 @@ public class Session implements Serializable {
          * @param fragment    the Fragment used to issue the request
          * @param permissions additional permissions to request
          */
-        public NewPermissionsRequest(Fragment fragment, String... permissions) {
+        public NewPermissionsRequest(android.app.Fragment fragment, String... permissions) {
             super(fragment);
             setPermissions(permissions);
         }
